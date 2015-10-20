@@ -1,0 +1,6 @@
+#!/bin/bash
+
+function goto(){
+    dir=`gos go $1`
+    cd $dir
+}
