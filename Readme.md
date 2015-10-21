@@ -8,14 +8,16 @@ goto <nickname>
 it goes to that project folder directly.
 
 ## Installation
-  The zip package shows the folders present in the home directory. So copy the ```goto_b``` file in the bin folder to any of the folders in the ```$PATH``` variable. Now, obviously, without bash completion this is just a waste. So place the .config/goto/ folder in the home directory. As the location of the database is hard coded, it is essential to keep the ```goto.db``` in that given folder (if not present create one). Now place the ```*.bash and goto``` files in the same folder or in some other folder of choice. Let the folder of choice be ```FOLDER/```. Now in ```.bashrc``` add the following lines.
-```shell
-source $FOLDER/goto_completion.bash
-source $FOLDER/goto
-source $FOLDER/gos_completion.bash
+  First run,
+  ```shell
+  make deps
   ```
-  Probably you are good to go.
-
+  to get all the dependencies.
+  Then run :
+  ```shell
+  make
+  ```
+  to install it to your system.
 ## Usage
 
 First goto any project folder. Now record this folder path against any random nickname.
