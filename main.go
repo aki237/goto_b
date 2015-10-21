@@ -7,7 +7,8 @@ import _"github.com/mattn/go-sqlite3"
 
 func register(nick,destination string) bool {
 	//Init Database
-	gotodb,err := sql.Open("sqlite3","/home/aki237/.config/goto/goto.db")
+	home := os.Getenv("HOME")
+	gotodb,err := sql.Open("sqlite3",home+"/.config/goto/goto.db")
 	var returnstate bool = false
 	var err_n,err_d string
 	if err != nil {
