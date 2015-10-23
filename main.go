@@ -1,9 +1,11 @@
 package main
 
 import "os"
+import "os/exec"
 import "fmt"
 import "database/sql"
 import _"github.com/mattn/go-sqlite3"
+import "strings"
 
 func register(nick,destination string) bool {
 	//Init Database
@@ -41,7 +43,6 @@ func register(nick,destination string) bool {
 	return returnstate
 }
 
-
 //
 func listall(what string) {
 	var nick ,dest string
@@ -73,7 +74,20 @@ func listall(what string) {
 }
 
 //
-func gonick(nicks string)  {
+func getbranch(nick string) {
+	dir := gonick(nick)
+	err := os.Chdir(dir)
+	out,err := exec.Command("git", "branch").Output()
+	if err != nil{
+		fmt.Println("Not a git repository",err)
+	}
+	retbash := string(out)
+	retbash = strings.Replace(retbash,"*","",1)
+	retbash = strings.Replace(retbash,"\n"," ",-1)
+	fmt.Println(retbash)
+}
+//
+func gonick(nicks string) string {
 	var nick ,dest string
 	gotodb,err := sql.Open("sqlite3","/home/aki237/.config/goto/goto.db")
 	if err != nil {
@@ -90,12 +104,12 @@ func gonick(nicks string)  {
 		if err!=nil{
 			fmt.Println(err)
 		}else{
-			fmt.Println(dest)
 		}
 	}
+	return dest
 }
 
-
+//
 func usage(){
 	fmt.Println("Usage : ")
 	fmt.Println("\tgoto [command] { [nick] [target] }")
@@ -104,6 +118,7 @@ func usage(){
 	fmt.Println("reg [nick] [target] -     register a nick against a given target (or) the current working directoy")
 }
 
+//
 func main() {
 	var command,nick,destination string
 	destination,err := os.Getwd()
@@ -134,7 +149,11 @@ func main() {
 	case "reg":
 		register(nick, destination)
 	case "go":
-		gonick(nick)
+		printout := gonick(nick)
+		fmt.Println(printout)
+		return
+	case "branch":
+		getbranch(nick)
 		return
 	default:
 		usage()
