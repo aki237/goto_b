@@ -3,7 +3,7 @@ cnt=${1000}
 
 _goto(){
     unset cnt
-    wordf=`gos listnick`
+    wordf=`goto_b listnick`
     i=0
     for word in $w
     do
