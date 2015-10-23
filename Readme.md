@@ -22,11 +22,11 @@ it goes to that project folder directly.
 
 First goto any project folder. Now record this folder path against any random nickname.
 ```shell
-goto_b reg myrandnick
+gob reg myrandnick
 ```
 or
 ```shell
-goto_b reg myrandnick [PROJECT_FOLDER_PATH]
+gob reg myrandnick [PROJECT_FOLDER_PATH]
 ```
 Now this folder nick has been recorded in the database. Now to navigate to that project folder,
 ```shell
