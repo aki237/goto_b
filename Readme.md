@@ -33,6 +33,13 @@ Now this folder nick has been recorded in the database. Now to navigate to that 
 goto [tab]
 ```
 You'll get possible completions.
+If the destinations of those respective nick completions is a local git repo, then there is a tab completion
+that shows git branches.
+```shell
+goto somegitreponick [tab]
+master testing
+```
+This goes to the project folder and checksout the specified branch.
 
 ## Why goto??
 This goto project is written, because for me as a go developer switching between projects is just a pain always.
