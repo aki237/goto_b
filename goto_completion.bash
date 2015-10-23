@@ -1,19 +1,23 @@
 #!/bin/bash
-cnt=${1000}
 
 _goto(){
-    unset cnt
-    wordf=`goto_b listnick`
-    i=0
-    for word in $w
-    do
-	cnt[i]=${word}
-	i=$[$i+1]
-    done
+    wordf=`gob listnick`
     local cur=${COMP_WORDS[COMP_CWORD]}
-    case "$cur" in
-	*)
+    local prev=${COMP_WORDS[COMP_CWORD-1]}
+    case ${COMP_CWORD} in
+	1)
 	    COMPREPLY=( $( compgen -W "$wordf" -- $cur))
+	    ;;
+	2)
+	    dirpresent=`gob go $prev`"/.git"
+	    if [ -d "$dirpresent" ]
+	    then
+		dir=`gob branch $prev`
+		COMPREPLY=( $( compgen -W "$dir" -- $cur))
+	    else
+		COMPREPLY=( $( compgen -W "" -- $cur))
+	    fi
+	    
     esac
 
     return 0
