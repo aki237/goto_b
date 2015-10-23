@@ -1,6 +1,11 @@
 #!/bin/bash
 
 function goto(){
-    dir=`goto_b go $1`
+    dir=`gob go $1`
     cd $dir
+    if [  "$#" -ne 1  ]
+    then
+	switch=$2
+	git checkout $switch
+    fi
 }
