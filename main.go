@@ -46,7 +46,8 @@ func register(nick,destination string) bool {
 //
 func listall(what string) {
 	var nick ,dest string
-	gotodb,err := sql.Open("sqlite3","/home/aki237/.config/goto/goto.db")
+	home := os.Getenv("HOME")
+	gotodb,err := sql.Open("sqlite3",home+"/.config/goto/goto.db")
 	if err != nil {
 		fmt.Println("Unable to access db")
 	}
