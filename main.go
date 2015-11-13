@@ -100,11 +100,25 @@ func gonick(nicks string) string {
 		fmt.Println(err)
 	}
 	defer rows.Close()
-	for(rows.Next()){
+	if(rows.Next()){
 		err = rows.Scan(&nick,&dest)
 		if err!=nil{
 			fmt.Println(err)
-		}else{
+		}
+	}else{
+		rows, err = gotodb.Query("select * from goto")
+		if err != nil{
+			fmt.Println(err)
+		}
+		defer rows.Close()
+		for(rows.Next()){
+			err = rows.Scan(&nick,&dest)
+			if err!=nil{
+				fmt.Println(err)
+			}
+			if(strings.Contains(nick,nicks)){
+				break
+			}
 		}
 	}
 	return dest
