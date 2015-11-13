@@ -2,10 +2,23 @@
 
 function goto(){
     dir=`gob go $1`
-    cd $dir
-    if [  "$#" -ne 1  ]
+    if [ -d "$dir" ]
     then
-	switch=$2
-	git checkout $switch
+	cd $dir
+	if [  "$#" -ne 1  ]
+	then
+	    switch=$2
+	    git checkout $switch
+	fi
+    else
+	echo -n "Directory not present. Create one (Y/N) : "
+	read answer
+	if [[ "$answer" == "Y" ]]
+	then
+	    mkdir -p $dir
+	    cd $dir
+	else
+	    echo "No such directory present"
+	fi
     fi
 }
